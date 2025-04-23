@@ -3,142 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AB Academy Website</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9fafb;
-      margin: 0;
-      padding: 0;
-    }
-    nav {
-      background-color: #ffffff;
-      padding: 1rem 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin: 0;
-      padding: 0;
-    }
-    nav ul li {
-      display: inline;
-    }
-    nav ul li a, nav ul li button {
-      text-decoration: none;
-      color: #374151;
-      font-weight: 500;
-      font-size: 1rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    nav ul li a:hover, nav ul li button:hover {
-      color: #6366f1;
-    }
-    .container {
-      padding: 3rem 1rem;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      color: #1f2937;
-    }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #4b5563;
-      margin-bottom: 1.5rem;
-    }
-    .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80vw;
-      height: 80vh;
-      background: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      overflow: hidden;
-    }
-    .popup iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 20px;
-    }
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: #ef4444;
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    .keypad {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      max-width: 220px;
-      margin: 2rem auto;
-    }
-    .keypad button {
-      padding: 12px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      background-color: #e0e7ff;
-      color: #1e3a8a;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .keypad button:hover {
-      background-color: #c7d2fe;
-    }
-    .keypad-display {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      color: #4b5563;
-      letter-spacing: 4px;
-    }
-    #keypadSection {
-      display: none;
-    }
-  </style>
+  <title>AB Academy - Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
     <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#courses">Courses</a></li>
-      <li><a href="#resources">Resources</a></li>
-      <li><a href="#codes">Codes</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
       <li><button id="codeBtn">Code</button></li>
     </ul>
   </nav>
 
-  <div class="container" id="home">
+  <div class="container">
     <h1>Welcome to AB Academy</h1>
-    <p>At AB Academy, we believe in making learning approachable, accessible, and impactful. Whether you're a curious beginner or a seasoned explorer of knowledge, we provide tools and content that make your learning journey both exciting and rewarding.</p>
-    <p>Use the code access feature to unlock premium resources and interactive tools. Stay curious and never stop growing!</p>
-    <p>Don't forget to explore our growing library of courses and community-driven content. Our goal is to empower you with soft, focused design and a seamless experience that adapts to your needs.</p>
+    <p>We provide a space for learners and builders to grow and connect. Explore our resources and see how far you can go!</p>
   </div>
 
   <div class="popup" id="iframeContainer">
@@ -182,17 +63,8 @@
           iframe.src = iframeCodes[currentInput];
           iframeContainer.style.display = "block";
 
-          if (goFullscreen) {
-            const requestFullScreen = iframeContainer.requestFullscreen
-              || iframeContainer.webkitRequestFullscreen
-              || iframeContainer.mozRequestFullScreen
-              || iframeContainer.msRequestFullscreen;
-
-            if (requestFullScreen) {
-              requestFullScreen.call(iframeContainer);
-            } else {
-              alert("Fullscreen is not supported on this browser.");
-            }
+          if (goFullscreen && iframeContainer.requestFullscreen) {
+            iframeContainer.requestFullscreen();
           }
         } else {
           alert("Invalid code!");
