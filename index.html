@@ -2,216 +2,194 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soft Look Website</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Code Portal</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f6f8fa;
-      color: #333;
-      line-height: 1.6;
-      padding: 2rem;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 0;
     }
-    header {
-      background-color: #ffffff;
-      padding: 1.5rem 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      margin-bottom: 2rem;
+    nav {
+      background: #e0e7ff;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1em;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #1e3a8a;
+      font-weight: 500;
+    }
+    .container {
+      padding: 2em;
       text-align: center;
     }
-    header h1 { font-size: 2rem; font-weight: 600; color: #444; }
-    nav {
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80vw;
+      height: 80vh;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .popup iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 16px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .keypad {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-top: 1rem;
       flex-wrap: wrap;
+      gap: 10px;
+      max-width: 200px;
+      margin: 20px auto;
     }
-    nav a {
-      text-decoration: none;
-      color: #555;
-      font-weight: 500;
-      background-color: #eef1f4;
-      padding: 0.5rem 1rem;
-      border-radius: 0.75rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+    .keypad button {
+      padding: 10px 16px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background-color: #dbeafe;
+      color: #1e3a8a;
+      cursor: pointer;
     }
-    nav a:hover {
-      background-color: #dbe3ec;
-      color: #222;
+    .keypad-display {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+      letter-spacing: 4px;
     }
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    h2 { font-size: 1.5rem; color: #555; margin-bottom: 1rem; }
-    p { margin-bottom: 1rem; }
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      color: #888;
-      font-size: 0.9rem;
-    }
-    button { cursor: pointer; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Soft-Looking Website</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#" id="codesLink">Codes</a></li>
+      <li><button id="codeBtn">Enter Code</button></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <h1>Welcome to the Secret Portal</h1>
+  </div>
 
-  <main>
-    <section id="about">
-      <h2>About This Page</h2>
-      <p>This is a simple and visually soft website template made with calm colors, rounded corners, and subtle shadows. It's perfect for personal projects, portfolios, or blogs.</p>
-    </section>
+  <div class="popup" id="iframeContainer">
+    <button class="close-btn" onclick="closePopup()">Close</button>
+    <iframe></iframe>
+  </div>
 
-    <section id="features">
-      <h2>Features</h2>
-      <p>- Soft color palette<br>
-         - Clean and modern font<br>
-         - Responsive design<br>
-         - Rounded elements for a gentle aesthetic</p>
-    </section>
-
-    <section id="projects">
-      <h2>Sample Projects</h2>
-      <p>Here you could list your projects or portfolio pieces. This is just a placeholder section for now.</p>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>If you’d like to get in touch, you can link your email or social profiles here.</p>
-    </section>
-
-    <!-- Code Button Trigger -->
-    <div style="text-align: center; margin-top: 2rem;">
-      <button id="openPopup" style="
-        background-color: #dbe3ec;
-        border: none;
-        border-radius: 0.75rem;
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
-        font-weight: 500;">
-        Code
-      </button>
-    </div>
-  </main>
-
-  <!-- Popup Modal -->
-  <div id="popupModal" style="
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;">
-    <div style="
-      background: white;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      position: relative;">
-
-      <button id="closePopup" style="
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: transparent;
-        border: none;
-        font-size: 1.2rem;">✖</button>
-
-      <h3 style="margin-bottom: 1rem;">Enter Code</h3>
-      <input id="codeInput" type="text" readonly style="
-        width: 100%;
-        padding: 0.5rem;
-        font-size: 1.25rem;
-        border: 1px solid #ccc;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-        text-align: center;" />
-
-      <div id="numpad" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
-        <button class="num-btn">1</button>
-        <button class="num-btn">2</button>
-        <button class="num-btn">3</button>
-        <button class="num-btn">4</button>
-        <button class="num-btn">5</button>
-        <button class="num-btn">6</button>
-        <button class="num-btn">7</button>
-        <button class="num-btn">8</button>
-        <button class="num-btn">9</button>
-        <button class="num-btn">0</button>
-        <button id="clearBtn" style="grid-column: span 3; background-color: #f0f0f0; border-radius: 0.5rem; padding: 0.5rem;">Clear</button>
-      </div>
-
-      <div id="iframeContainer" style="margin-top: 1rem; display: none;">
-        <iframe src="https://deadshot.io" width="100%" height="300px" style="border: none; border-radius: 0.5rem;"></iframe>
-      </div>
+  <div class="container" id="keypadSection" style="display: none;">
+    <div class="keypad-display" id="codeDisplay">____</div>
+    <div class="keypad">
+      <button onclick="pressNum('1')">1</button>
+      <button onclick="pressNum('2')">2</button>
+      <button onclick="pressNum('3')">3</button>
+      <button onclick="pressNum('4')">4</button>
+      <button onclick="pressNum('5')">5</button>
+      <button onclick="pressNum('6')">6</button>
+      <button onclick="pressNum('7')">7</button>
+      <button onclick="pressNum('8')">8</button>
+      <button onclick="pressNum('9')">9</button>
+      <button onclick="clearCode()">Clear</button>
+      <button onclick="pressNum('0')">0</button>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 Soft Look Web. All rights reserved.
-  </footer>
-
+  <script src="codes.js"></script>
   <script>
-    const openBtn = document.getElementById("openPopup");
-    const closeBtn = document.getElementById("closePopup");
-    const modal = document.getElementById("popupModal");
-    const codeInput = document.getElementById("codeInput");
-    const iframeContainer = document.getElementById("iframeContainer");
-    const numpadButtons = document.querySelectorAll(".num-btn");
-    const clearBtn = document.getElementById("clearBtn");
-
     let currentInput = "";
-
-    openBtn.onclick = () => {
-      modal.style.display = "flex";
-      codeInput.value = "";
-      currentInput = "";
-      iframeContainer.style.display = "none";
-    };
-
-    closeBtn.onclick = () => {
-      modal.style.display = "none";
-    };
-
-    clearBtn.onclick = () => {
-      currentInput = "";
-      codeInput.value = "";
-      iframeContainer.style.display = "none";
-    };
-
-    numpadButtons.forEach(btn => {
-      btn.onclick = () => {
-        if (btn.textContent !== "Clear" && currentInput.length < 4) {
-          currentInput += btn.textContent;
-          codeInput.value = currentInput;
-        }
-        if (currentInput === "9032") {
+    const codeDisplay = document.getElementById("codeDisplay");
+    const iframeContainer = document.getElementById("iframeContainer");
+    const keypadSection = document.getElementById("keypadSection");
+    
+    // Keypad function
+    function pressNum(num) {
+      if (currentInput.length < 4) {
+        currentInput += num;
+        codeDisplay.textContent = currentInput.padEnd(4, '_');
+      }
+      if (currentInput.length === 4) {
+        if (iframeCodes[currentInput]) {
+          const goFullscreen = confirm("Do you want to view this in fullscreen?");
+    
+          const iframe = iframeContainer.querySelector("iframe");
+          iframe.src = iframeCodes[currentInput];
           iframeContainer.style.display = "block";
+    
+          if (goFullscreen) {
+            const requestFullScreen = iframeContainer.requestFullscreen
+              || iframeContainer.webkitRequestFullscreen
+              || iframeContainer.mozRequestFullScreen
+              || iframeContainer.msRequestFullscreen;
+    
+            if (requestFullScreen) {
+              requestFullScreen.call(iframeContainer);
+            } else {
+              alert("Fullscreen is not supported on this browser.");
+            }
+          }
+        } else {
+          alert("Invalid code!");
+          clearCode();
         }
-      };
+      }
+    }
+    
+    // Clear the entered code
+    function clearCode() {
+      currentInput = "";
+      codeDisplay.textContent = "____";
+    }
+    
+    // Close the iframe popup
+    function closePopup() {
+      iframeContainer.style.display = "none";
+      iframeContainer.querySelector("iframe").src = "";
+    }
+
+    // Show the code entry keypad
+    document.getElementById("codeBtn").addEventListener("click", () => {
+      keypadSection.style.display = "block";
+      clearCode();
+    });
+
+    // Scroll to the codes section when the "Codes" link is clicked
+    document.getElementById("codesLink").addEventListener("click", () => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
     });
   </script>
 </body>
