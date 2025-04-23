@@ -15,6 +15,9 @@
       background-color: #ffffff;
       padding: 1rem 2rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     nav ul {
       list-style: none;
@@ -115,23 +118,26 @@
       color: #4b5563;
       letter-spacing: 4px;
     }
+    #keypadSection {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <nav>
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">about us</a></li>
-      <li><a href="#">Resources</a></li>
-      <li><a href="#" id="codesLink">Codes</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#codes">Codes</a></li>
       <li><button id="codeBtn">Code</button></li>
     </ul>
   </nav>
 
-  <div class="container">
+  <div class="container" id="home">
     <h1>Welcome to AB Academy</h1>
     <p>At AB Academy, we believe in making learning approachable, accessible, and impactful. Whether you're a curious beginner or a seasoned explorer of knowledge, we provide tools and content that make your learning journey both exciting and rewarding.</p>
-    <p> We have a code feature this website is still in beta these codes will be aquired in different things . Stay curious and never stop growing!</p>
+    <p>Use the code access feature to unlock premium resources and interactive tools. Stay curious and never stop growing!</p>
     <p>Don't forget to explore our growing library of courses and community-driven content. Our goal is to empower you with soft, focused design and a seamless experience that adapts to your needs.</p>
   </div>
 
@@ -140,7 +146,7 @@
     <iframe></iframe>
   </div>
 
-  <div class="container" id="keypadSection" style="display: none;">
+  <div class="container" id="keypadSection">
     <div class="keypad-display" id="codeDisplay">____</div>
     <div class="keypad">
       <button onclick="pressNum('1')">1</button>
@@ -208,13 +214,7 @@
     document.getElementById("codeBtn").addEventListener("click", () => {
       keypadSection.style.display = "block";
       clearCode();
-    });
-
-    document.getElementById("codesLink").addEventListener("click", () => {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: keypadSection.offsetTop, behavior: "smooth" });
     });
   </script>
 </body>
