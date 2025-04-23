@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code - AB Academy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="code.html">Code</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Enter Code to Access Content</h1>
+    <p>Enter the code below to unlock content from the AB Academy library.</p>
+    
+    <div class="keypad-display" id="codeDisplay">____</div>
+    <div class="keypad" id="keypadSection">
+      <button onclick="pressNum('1')">1</button>
+      <button onclick="pressNum('2')">2</button>
+      <button onclick="pressNum('3')">3</button>
+      <button onclick="pressNum('4')">4</button>
+      <button onclick="pressNum('5')">5</button>
+      <button onclick="pressNum('6')">6</button>
+      <button onclick="pressNum('7')">7</button>
+      <button onclick="pressNum('8')">8</button>
+      <button onclick="pressNum('9')">9</button>
+      <button onclick="clearCode()">Clear</button>
+      <button onclick="pressNum('0')">0</button>
+    </div>
+  </div>
+
+  <div class="popup" id="iframeContainer">
+    <button class="close-btn" onclick="closePopup()">Close</button>
+    <iframe></iframe>
+  </div>
+
+  <script src="codes.js"></script>
+  <script>
+    let currentInput = "";
+    const codeDisplay = document.getElementById("codeDisplay");
+    const iframeContainer = document.getElementById("iframeContainer");
+    const keypadSection = document.getElementById("keypadSection");
+
+    function pressNum(num) {
+      if (currentInput.length < 4) {
+        currentInput += num;
+        codeDisplay.textContent = currentInput.padEnd(4, '_');
+      }
+      if (currentInput.length === 4) {
+        if (iframeCodes[currentInput]) {
+          const goFullscreen = confirm("Do you want to view this in fullscreen?");
+          const iframe = iframeContainer.querySelector("iframe");
+          iframe.src = iframeCodes[currentInput];
+          iframeContainer.style.display = "block";
+
+          if (goFullscreen && iframeContainer.requestFullscreen) {
+            iframeContainer.requestFullscreen();
+          }
+        } else {
+          alert("Invalid code!");
+          clearCode();
+        }
+      }
+    }
+
+    function clearCode() {
+      currentInput = "";
+      codeDisplay.textContent = "____";
+    }
+
+    function closePopup() {
+      iframeContainer.style.display = "none";
+      iframeContainer.querySelector("iframe").src = "";
+    }
+  </script>
+</body>
+</html>
