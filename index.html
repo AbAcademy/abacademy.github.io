@@ -26,10 +26,15 @@
     nav ul li {
       display: inline;
     }
-    nav ul li a {
+    nav ul li a, nav ul li button {
       text-decoration: none;
       color: #1e3a8a;
       font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1em;
     }
     .container {
       padding: 2em;
@@ -100,6 +105,7 @@
       <li><button id="codeBtn">Enter Code</button></li>
     </ul>
   </nav>
+
   <div class="container">
     <h1>Welcome to the Secret Portal</h1>
   </div>
@@ -132,8 +138,7 @@
     const codeDisplay = document.getElementById("codeDisplay");
     const iframeContainer = document.getElementById("iframeContainer");
     const keypadSection = document.getElementById("keypadSection");
-    
-    // Keypad function
+
     function pressNum(num) {
       if (currentInput.length < 4) {
         currentInput += num;
@@ -142,17 +147,17 @@
       if (currentInput.length === 4) {
         if (iframeCodes[currentInput]) {
           const goFullscreen = confirm("Do you want to view this in fullscreen?");
-    
+
           const iframe = iframeContainer.querySelector("iframe");
           iframe.src = iframeCodes[currentInput];
           iframeContainer.style.display = "block";
-    
+
           if (goFullscreen) {
             const requestFullScreen = iframeContainer.requestFullscreen
               || iframeContainer.webkitRequestFullscreen
               || iframeContainer.mozRequestFullScreen
               || iframeContainer.msRequestFullscreen;
-    
+
             if (requestFullScreen) {
               requestFullScreen.call(iframeContainer);
             } else {
@@ -165,26 +170,22 @@
         }
       }
     }
-    
-    // Clear the entered code
+
     function clearCode() {
       currentInput = "";
       codeDisplay.textContent = "____";
     }
-    
-    // Close the iframe popup
+
     function closePopup() {
       iframeContainer.style.display = "none";
       iframeContainer.querySelector("iframe").src = "";
     }
 
-    // Show the code entry keypad
     document.getElementById("codeBtn").addEventListener("click", () => {
       keypadSection.style.display = "block";
       clearCode();
     });
 
-    // Scroll to the codes section when the "Codes" link is clicked
     document.getElementById("codesLink").addEventListener("click", () => {
       window.scrollTo({
         top: document.body.scrollHeight,
