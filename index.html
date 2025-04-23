@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secret Code Portal</title>
+  <title>Soft Portal</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f3f4f6;
+      background-color: #f9fafb;
       margin: 0;
       padding: 0;
     }
     nav {
-      background: #e0e7ff;
-      padding: 1em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1em;
+      justify-content: center;
+      gap: 2rem;
       margin: 0;
       padding: 0;
     }
@@ -28,17 +29,24 @@
     }
     nav ul li a, nav ul li button {
       text-decoration: none;
-      color: #1e3a8a;
+      color: #374151;
       font-weight: 500;
+      font-size: 1rem;
       background: none;
       border: none;
       cursor: pointer;
-      font-family: inherit;
-      font-size: 1em;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover, nav ul li button:hover {
+      color: #6366f1;
     }
     .container {
-      padding: 2em;
+      padding: 3rem 1rem;
       text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #1f2937;
     }
     .popup {
       display: none;
@@ -48,27 +56,28 @@
       transform: translate(-50%, -50%);
       width: 80vw;
       height: 80vh;
-      background: white;
-      border: 2px solid #ddd;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       z-index: 1000;
+      overflow: hidden;
     }
     .popup iframe {
       width: 100%;
       height: 100%;
       border: none;
-      border-radius: 16px;
+      border-radius: 20px;
     }
     .close-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: 12px;
+      right: 12px;
       background: #ef4444;
-      color: white;
+      color: #fff;
       border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
       cursor: pointer;
     }
     .keypad {
@@ -76,21 +85,26 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      max-width: 200px;
-      margin: 20px auto;
+      max-width: 220px;
+      margin: 2rem auto;
     }
     .keypad button {
-      padding: 10px 16px;
-      font-size: 1.2em;
+      padding: 12px;
+      font-size: 1.2rem;
       border: none;
-      border-radius: 8px;
-      background-color: #dbeafe;
+      border-radius: 12px;
+      background-color: #e0e7ff;
       color: #1e3a8a;
       cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .keypad button:hover {
+      background-color: #c7d2fe;
     }
     .keypad-display {
-      font-size: 1.4em;
-      margin-bottom: 10px;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #4b5563;
       letter-spacing: 4px;
     }
   </style>
@@ -99,15 +113,14 @@
   <nav>
     <ul>
       <li><a href="#">Home</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#">About</a></li>
       <li><a href="#" id="codesLink">Codes</a></li>
       <li><button id="codeBtn">Enter Code</button></li>
     </ul>
   </nav>
 
   <div class="container">
-    <h1>Welcome to the Secret Portal</h1>
+    <h1>Welcome to the Soft Portal</h1>
   </div>
 
   <div class="popup" id="iframeContainer">
@@ -147,7 +160,6 @@
       if (currentInput.length === 4) {
         if (iframeCodes[currentInput]) {
           const goFullscreen = confirm("Do you want to view this in fullscreen?");
-
           const iframe = iframeContainer.querySelector("iframe");
           iframe.src = iframeCodes[currentInput];
           iframeContainer.style.display = "block";
