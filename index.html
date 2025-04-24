@@ -6,6 +6,11 @@
   <title>AB Academy - Home</title>
   <link rel="stylesheet" href="style.css">
 </head>
+<script>
+  const savedTheme = localStorage.getItem("abTheme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+</script>
+
 <body>
   <nav>
     <ul>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Themes - AB Academy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="code.html">Code</a></li>
+      <li><a href="themes.html">Themes</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Choose a Theme</h1>
+    <p>Select your preferred look for AB Academy.</p>
+
+    <div class="theme-buttons">
+      <button onclick="setTheme('light')">🌤️ Light</button>
+      <button onclick="setTheme('dark')">🌙 Dark</button>
+      <button onclick="setTheme('softblue')">🩵 Soft Blue</button>
+    </div>
+  </div>
+
+  <script>
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("abTheme", theme);
+    }
+
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem("abTheme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+</body>
+</html>
