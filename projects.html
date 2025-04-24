@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects - AB Academy</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<script>
-  const savedTheme = localStorage.getItem("abTheme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-</script>
-
 <body>
   <nav>
     <ul>
@@ -19,12 +14,51 @@
       <li><a href="projects.html">Projects</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="code.html">Code</a></li>
+      <li><a href="themes.html">Themes</a></li>
     </ul>
   </nav>
+
   <div class="container">
-    <h1>Our Projects</h1>
-    <p>We build apps, design systems, and educational tools to make learning more interactive and enjoyable for everyone.</p>
+    <h1>Projects</h1>
+    <p>Explore our featured projects, crafted by students and contributors of AB Academy to demonstrate skills in HTML, CSS, JavaScript, and more.</p>
   </div>
+
+  <script>
+    const savedTheme = localStorage.getItem("abTheme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
 </body>
 </html>
 
+<!-- contact.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - AB Academy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="code.html">Code</a></li>
+      <li><a href="themes.html">Themes</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Questions or suggestions? We'd love to hear from you! Reach out via email or connect with us on social media.</p>
+  </div>
+
+  <script>
+    const savedTheme = localStorage.getItem("abTheme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+</body>
+</html>

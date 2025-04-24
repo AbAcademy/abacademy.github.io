@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AB Academy - Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AB Academy</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<script>
-  const savedTheme = localStorage.getItem("abTheme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-</script>
-
 <body>
   <nav>
     <ul>
@@ -18,81 +13,52 @@
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><button id="codeBtn">Code</button></li>
+      <li><a href="code.html">Code</a></li>
+      <li><a href="themes.html">Themes</a></li>
     </ul>
   </nav>
 
   <div class="container">
     <h1>Welcome to AB Academy</h1>
-    <p>We provide a space for learners and builders to grow and connect. Explore our resources and see how far you can go!</p>
+    <p>Your hub for coding, creativity, and learning. Choose a theme that suits your mood and dive into our resources.</p>
   </div>
 
-  <div class="popup" id="iframeContainer">
-    <button class="close-btn" onclick="closePopup()">Close</button>
-    <iframe></iframe>
-  </div>
-
-  <div class="container" id="keypadSection">
-    <div class="keypad-display" id="codeDisplay">____</div>
-    <div class="keypad">
-      <button onclick="pressNum('1')">1</button>
-      <button onclick="pressNum('2')">2</button>
-      <button onclick="pressNum('3')">3</button>
-      <button onclick="pressNum('4')">4</button>
-      <button onclick="pressNum('5')">5</button>
-      <button onclick="pressNum('6')">6</button>
-      <button onclick="pressNum('7')">7</button>
-      <button onclick="pressNum('8')">8</button>
-      <button onclick="pressNum('9')">9</button>
-      <button onclick="clearCode()">Clear</button>
-      <button onclick="pressNum('0')">0</button>
-    </div>
-  </div>
-
-  <script src="codes.js"></script>
   <script>
-    let currentInput = "";
-    const codeDisplay = document.getElementById("codeDisplay");
-    const iframeContainer = document.getElementById("iframeContainer");
-    const keypadSection = document.getElementById("keypadSection");
+    const savedTheme = localStorage.getItem("abTheme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+</body>
+</html>
 
-    function pressNum(num) {
-      if (currentInput.length < 4) {
-        currentInput += num;
-        codeDisplay.textContent = currentInput.padEnd(4, '_');
-      }
-      if (currentInput.length === 4) {
-        if (iframeCodes[currentInput]) {
-          const goFullscreen = confirm("Do you want to view this in fullscreen?");
-          const iframe = iframeContainer.querySelector("iframe");
-          iframe.src = iframeCodes[currentInput];
-          iframeContainer.style.display = "block";
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - AB Academy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="code.html">Code</a></li>
+      <li><a href="themes.html">Themes</a></li>
+    </ul>
+  </nav>
 
-          if (goFullscreen && iframeContainer.requestFullscreen) {
-            iframeContainer.requestFullscreen();
-          }
-        } else {
-          alert("Invalid code!");
-          clearCode();
-        }
-      }
-    }
+  <div class="container">
+    <h1>About AB Academy</h1>
+    <p>AB Academy is dedicated to helping aspiring developers learn through hands-on projects, interactive lessons, and real-world code examples.</p>
+  </div>
 
-    function clearCode() {
-      currentInput = "";
-      codeDisplay.textContent = "____";
-    }
-
-    function closePopup() {
-      iframeContainer.style.display = "none";
-      iframeContainer.querySelector("iframe").src = "";
-    }
-
-    document.getElementById("codeBtn").addEventListener("click", () => {
-      keypadSection.style.display = "block";
-      clearCode();
-      window.scrollTo({ top: keypadSection.offsetTop, behavior: "smooth" });
-    });
+  <script>
+    const savedTheme = localStorage.getItem("abTheme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
   </script>
 </body>
 </html>
