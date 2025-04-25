@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AB Academy – Code</title>
+  <title>AB Academy </title>
   <style>
     body {
       margin: 0;
-      background: rgba(0, 0, 0, 0.3);
       font-family: 'Segoe UI', sans-serif;
+      background: #eef6ff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -26,37 +26,34 @@
       position: relative;
     }
 
-    h2 {
+    .modal h2 {
       margin-top: 0;
       color: #3399ff;
     }
 
-    .input-row {
-      margin: 15px 0;
-    }
-
     input {
-      font-size: 24px;
-      padding: 12px;
+      font-size: 22px;
+      padding: 10px;
       width: 80%;
       text-align: center;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid #ccc;
+      margin-bottom: 20px;
     }
 
     .pad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin: 20px 0;
+      margin: 10px 0;
     }
 
     .pad button {
       font-size: 20px;
-      padding: 14px;
+      padding: 12px;
       border-radius: 10px;
-      background-color: #e6f2ff;
       border: 1px solid #ccc;
+      background: #dff1ff;
       cursor: pointer;
     }
 
@@ -65,14 +62,27 @@
     }
 
     .controls button {
-      margin: 5px;
-      padding: 10px 16px;
-      font-size: 14px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      background-color: #3399ff;
+      background: #3399ff;
       color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .top-right {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+
+    .top-right button {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
     }
 
     iframe {
@@ -87,22 +97,9 @@
       display: none;
     }
 
-    .top-right {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-    }
-
-    .top-right button {
-      background: transparent;
-      font-size: 22px;
-      border: none;
-      cursor: pointer;
-      color: #999;
-    }
-
     .error {
       color: red;
+      font-size: 14px;
       margin-top: 10px;
     }
   </style>
@@ -114,23 +111,21 @@
     </div>
 
     <h2>Enter Code</h2>
-    <div class="input-row">
-      <input type="text" id="codeInput" placeholder="Type or click..." />
-    </div>
+    <input type="text" id="codeInput" placeholder="Type or click..." />
 
     <div class="pad">
-      <button onclick="appendDigit('1')">1</button>
-      <button onclick="appendDigit('2')">2</button>
-      <button onclick="appendDigit('3')">3</button>
-      <button onclick="appendDigit('4')">4</button>
-      <button onclick="appendDigit('5')">5</button>
-      <button onclick="appendDigit('6')">6</button>
-      <button onclick="appendDigit('7')">7</button>
-      <button onclick="appendDigit('8')">8</button>
-      <button onclick="appendDigit('9')">9</button>
-      <button onclick="clearDigit()">←</button>
-      <button onclick="appendDigit('0')">0</button>
-      <button onclick="verifyCode()">✔</button>
+      <button onclick="addDigit('1')">1</button>
+      <button onclick="addDigit('2')">2</button>
+      <button onclick="addDigit('3')">3</button>
+      <button onclick="addDigit('4')">4</button>
+      <button onclick="addDigit('5')">5</button>
+      <button onclick="addDigit('6')">6</button>
+      <button onclick="addDigit('7')">7</button>
+      <button onclick="addDigit('8')">8</button>
+      <button onclick="addDigit('9')">9</button>
+      <button onclick="backspace()">←</button>
+      <button onclick="addDigit('0')">0</button>
+      <button onclick="submitCode()">✔</button>
     </div>
 
     <div class="controls">
@@ -138,51 +133,12 @@
     </div>
 
     <div id="iframeContainer" class="hidden"></div>
-    <p id="errorText" class="error hidden">Invalid Code</p>
+    <div id="error" class="error hidden">Invalid code. Try again.</div>
   </div>
 
   <script>
-    const codes = {
-      "9032": "https://deadshot.io"
-    };
+    const codeInput = document.getElementById("codeInput");
+    const iframeContainer = document.getElementById("iframeContainer");
+    const errorText = document.getElementById("error");
 
-    function appendDigit(digit) {
-      const input = document.getElementById("codeInput");
-      input.value += digit;
-    }
-
-    function clearDigit() {
-      const input = document.getElementById("codeInput");
-      input.value = input.value.slice(0, -1);
-    }
-
-    function verifyCode() {
-      const inputVal = document.getElementById("codeInput").value.trim();
-      const iframeContainer = document.getElementById("iframeContainer");
-      const errorText = document.getElementById("errorText");
-
-      if (codes[inputVal]) {
-        iframeContainer.classList.remove("hidden");
-        errorText.classList.add("hidden");
-        iframeContainer.innerHTML = `<iframe src="${codes[inputVal]}" allowfullscreen></iframe>`;
-      } else {
-        iframeContainer.innerHTML = "";
-        iframeContainer.classList.add("hidden");
-        errorText.classList.remove("hidden");
-      }
-    }
-
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-
-    function closePopup() {
-      window.location.href = "index.html"; // back to homepage
-    }
-  </script>
-</body>
-</html>
+    // Your codes here
