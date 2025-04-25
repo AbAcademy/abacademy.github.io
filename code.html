@@ -1,36 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Enter Code – AB Academy</title>
+  <title>AB Academy – Code</title>
   <style>
     body {
       margin: 0;
-      background: #f0f8ff;
+      background: rgba(0, 0, 0, 0.3);
       font-family: 'Segoe UI', sans-serif;
-      background: #f2faff;
-      color: #222;
-      margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
     }
 
-    .popup {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 90%;
+    .modal {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #3399ff;
+    }
+
+    .input-row {
+      margin: 15px 0;
     }
 
     input {
       font-size: 24px;
-      padding: 10px;
+      padding: 12px;
       width: 80%;
       text-align: center;
       border-radius: 12px;
@@ -41,26 +48,28 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin: 15px 0;
+      margin: 20px 0;
     }
 
     .pad button {
       font-size: 20px;
-      padding: 10px;
+      padding: 14px;
       border-radius: 10px;
       background-color: #e6f2ff;
       border: 1px solid #ccc;
-      margin-bottom: 10px;
-      text-align: center;
+      cursor: pointer;
     }
 
-    button {
-      background: #3399ff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
+    .controls {
+      margin-top: 10px;
+    }
+
+    .controls button {
+      margin: 5px;
+      padding: 10px 16px;
+      font-size: 14px;
       border-radius: 10px;
-      font-size: 16px;
+      border: none;
       cursor: pointer;
       background-color: #3399ff;
       color: white;
@@ -80,55 +89,86 @@
 
     .top-right {
       position: absolute;
-      top: 20px;
+      top: 15px;
       right: 20px;
     }
 
     .top-right button {
       background: transparent;
-      font-size: 20px;
+      font-size: 22px;
       border: none;
       cursor: pointer;
+      color: #999;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="popup">
-    <h2>Enter Access Code</h2>
-    <input id="codeInput" type="text" placeholder="Type your code" />
-    <br />
-    <button onclick="verifyCode()">Submit</button>
-    <div id="iframeContainer"></div>
+  <div class="modal">
+    <div class="top-right">
+      <button onclick="closePopup()">✕</button>
+    </div>
+
+    <h2>Enter Code</h2>
+    <div class="input-row">
+      <input type="text" id="codeInput" placeholder="Type or click..." />
+    </div>
+
+    <div class="pad">
+      <button onclick="appendDigit('1')">1</button>
+      <button onclick="appendDigit('2')">2</button>
+      <button onclick="appendDigit('3')">3</button>
+      <button onclick="appendDigit('4')">4</button>
+      <button onclick="appendDigit('5')">5</button>
+      <button onclick="appendDigit('6')">6</button>
+      <button onclick="appendDigit('7')">7</button>
+      <button onclick="appendDigit('8')">8</button>
+      <button onclick="appendDigit('9')">9</button>
+      <button onclick="clearDigit()">←</button>
+      <button onclick="appendDigit('0')">0</button>
+      <button onclick="verifyCode()">✔</button>
+    </div>
+
+    <div class="controls">
+      <button onclick="toggleFullscreen()">🔳 Fullscreen</button>
+    </div>
+
+    <div id="iframeContainer" class="hidden"></div>
+    <p id="errorText" class="error hidden">Invalid Code</p>
   </div>
 
   <script>
     const codes = {
       "9032": "https://deadshot.io"
-      "7837":"https://krunker.io"
     };
 
-    function handlePad(val) {
+    function appendDigit(digit) {
       const input = document.getElementById("codeInput");
-      if (val === "←") {
-        input.value = input.value.slice(0, -1);
-      } else if (val === "✔") {
-        verifyCode();
-      } else {
-        input.value += val;
-      }
+      input.value += digit;
+    }
+
+    function clearDigit() {
+      const input = document.getElementById("codeInput");
+      input.value = input.value.slice(0, -1);
     }
 
     function verifyCode() {
-      const input = document.getElementById("codeInput").value.trim();
-      const container = document.getElementById("iframeContainer");
+      const inputVal = document.getElementById("codeInput").value.trim();
+      const iframeContainer = document.getElementById("iframeContainer");
+      const errorText = document.getElementById("errorText");
 
-      if (codes[input]) {
-        container.innerHTML = \`
-          <iframe src="\${codes[input]}" allowfullscreen></iframe>
-        \`;
+      if (codes[inputVal]) {
+        iframeContainer.classList.remove("hidden");
+        errorText.classList.add("hidden");
+        iframeContainer.innerHTML = `<iframe src="${codes[inputVal]}" allowfullscreen></iframe>`;
       } else {
-        container.classList.remove("hidden");
-        container.innerHTML = "<p>❌ Invalid Code</p>";
+        iframeContainer.innerHTML = "";
+        iframeContainer.classList.add("hidden");
+        errorText.classList.remove("hidden");
       }
     }
 
@@ -141,7 +181,7 @@
     }
 
     function closePopup() {
-      window.location.href = "index.html"; // Optional: go back to main page
+      window.location.href = "index.html"; // back to homepage
     }
   </script>
 </body>
