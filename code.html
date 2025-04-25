@@ -1,33 +1,185 @@
-<script>
-  // 🔐 Define your codes and their corresponding iframe URLs here
-  const codes = {
-    "9032": "https://deadshot.io",
-    "1234": "https://www.alfajrulbassem.com/",
-    "7382": "https://krunker.io"
-    // Add more like: "yourcode": "https://yourlink.com"
-  };
-
-  function verifyCode() {
-    const input = document.getElementById("codeInput").value.trim();
-    const container = document.getElementById("iframeContainer");
-
-    if (codes[input]) {
-      container.innerHTML = `
-        <iframe src="${codes[input]}" allowfullscreen></iframe>
-        <button class="fullscreen-btn" onclick="toggleFullscreen()">🔳 Fullscreen</button>
-      `;
-    } else {
-      container.innerHTML = "<p style='margin-top:10px;'>❌ Invalid code.</p>";
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter Code – AB Academy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root[data-theme="light"] {
+      --bg-color: #f7faff;
+      --text-color: #222;
+      --accent-color: #3399ff;
     }
-  }
 
-  function toggleFullscreen() {
-    const iframe = document.querySelector("#iframeContainer iframe");
-    if (iframe.requestFullscreen) iframe.requestFullscreen();
-    else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-    else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
-  }
+    :root[data-theme="dark"] {
+      --bg-color: #1e1e2f;
+      --text-color: #fff;
+      --accent-color: #5ea2ff;
+    }
 
-  const savedTheme = localStorage.getItem("abTheme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-</script>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .popup {
+      background: white;
+      background: var(--bg-color);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+
+    .code-display {
+      font-size: 28px;
+      letter-spacing: 8px;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid var(--text-color);
+      border-radius: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .numpad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .numpad button {
+      padding: 15px 0;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent-color);
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .numpad button:hover {
+      background: #0077dd;
+    }
+
+    #iframeContainer iframe {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      border-radius: 12px;
+      border: none;
+    }
+
+    .fullscreen-btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent-color);
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup">
+    <div class="popup-header">
+      <h2>Enter Code</h2>
+      <button class="close-btn" onclick="window.location.href='index.html'">✖</button>
+    </div>
+
+    <input type="text" id="codeInput" class="code-display" maxlength="10" placeholder="••••" oninput="updateInput()" />
+    
+    <div class="numpad">
+      <button onclick="addDigit('1')">1</button>
+      <button onclick="addDigit('2')">2</button>
+      <button onclick="addDigit('3')">3</button>
+      <button onclick="addDigit('4')">4</button>
+      <button onclick="addDigit('5')">5</button>
+      <button onclick="addDigit('6')">6</button>
+      <button onclick="addDigit('7')">7</button>
+      <button onclick="addDigit('8')">8</button>
+      <button onclick="addDigit('9')">9</button>
+      <button onclick="clearInput()">⌫</button>
+      <button onclick="addDigit('0')">0</button>
+      <button onclick="verifyCode()">✔</button>
+    </div>
+
+    <div id="iframeContainer"></div>
+  </div>
+
+  <script>
+    const codes = {
+      "9032": "https://deadshot.io",
+      "1234": "https://krunker.io"
+    };
+
+    function addDigit(num) {
+      const input = document.getElementById("codeInput");
+      if (input.value.length < 10) {
+        input.value += num;
+      }
+    }
+
+    function clearInput() {
+      document.getElementById("codeInput").value = "";
+      document.getElementById("iframeContainer").innerHTML = "";
+    }
+
+    function updateInput() {
+      // Optional live validation or styling
+    }
+
+    function verifyCode() {
+      const code = document.getElementById("codeInput").value.trim();
+      const container = document.getElementById("iframeContainer");
+
+      if (codes[code]) {
+        container.innerHTML = `
+          <iframe src="${codes[code]}" allowfullscreen></iframe>
+          <button class="fullscreen-btn" onclick="toggleFullscreen()">🔳 Fullscreen</button>
+        `;
+      } else {
+        container.innerHTML = "<p style='margin-top:10px;'>❌ Invalid code.</p>";
+      }
+    }
+
+    function toggleFullscreen() {
+      const iframe = document.querySelector("#iframeContainer iframe");
+      if (iframe.requestFullscreen) iframe.requestFullscreen();
+      else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+      else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("abTheme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+</body>
+</html>
