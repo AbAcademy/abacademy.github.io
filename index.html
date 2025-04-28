@@ -1,32 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AB Academy</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="codes.js"></script>
+  <script defer src="main.js"></script>
 </head>
 <body>
+
+  <!-- Navigation Bar -->
   <nav>
+    <div class="logo">AB Academy</div>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="code.html">Code</a></li>
       <li><a href="themes.html">Themes</a></li>
+      <li><a href="#" id="openCode">Code</a></li>
     </ul>
   </nav>
 
-  <div class="container">
+  <!-- Main Content -->
+  <section class="content">
     <h1>Welcome to AB Academy</h1>
-    <p>your student website for students by students .</p>
-  </div>
+    <p>Explore, learn, and grow with AB Academy. This is your gateway to a variety of resources and tools to enhance your learning journey.</p>
+  </section>
 
-  <script>
-    const savedTheme = localStorage.getItem("abTheme") || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-  </script>
-</body>
-</html>
+  <!-- Code Overlay -->
+  <div class="overlay" id="codeOverlay">
+    <div class="overlay-content">
+      <button class="close-btn" id="closeOverlay">✕</button>
+      <h2>Enter Code</h2>
+      <input type="text" id="codeInput" placeholder="Type or click..." maxlength="10" />
 
+      <div class="pad">
+        <button onclick="addDigit('1')">1</button>
+        <button onclick="addDigit('2')">2</button>
+        <button onclick="addDigit('3')">3</button>
+        <button onclick="addDigit('4')">4</button>
+        <button onclick="addDigit('5')">5</button>
+        <button onclick="addDigit('6')">6</button>
+        <button onclick="addDigit('7')">7</button>
+        <button onclick="addDigit('8')">8</button>
+        <button onclick="addDigit('9')">
