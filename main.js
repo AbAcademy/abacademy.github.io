@@ -57,3 +57,8 @@ codeInput.addEventListener('keydown', function (e) {
     submitCode();
   }
 });
+// Make functions globally accessible for inline HTML
+window.addDigit = addDigit;
+window.backspace = backspace;
+window.submitCode = submitCode;
+window.toggleFullscreen = toggleFullscreen;
